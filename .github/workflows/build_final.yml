@@ -1,1 +1,22 @@
+name: Build APK Final
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Install Tools
+      run: sudo apt-get update && sudo apt-get install -y build-essential ccache git libffi-dev libssl-dev libtool autoconf automake cmake gettext pkg-config libltdl-dev && pip install buildozer cython yt-dlp
+    - name: Run Buildozer
+      run: yes | buildozer -v android debug
+    - uses: actions/upload-artifact@v4
+      with:
+        name: My-Downloader-APK
+        path: bin/*.apk
