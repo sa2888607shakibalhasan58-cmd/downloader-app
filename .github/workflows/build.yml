@@ -13,7 +13,7 @@ jobs:
       with:
         python-version: '3.11'
     - name: Install Tools
-      run: sudo apt-get update && sudo apt-get install -y build-essential ccache git libffi-dev libssl-dev libtool autoconf automake cmake gettext pkg-config libltdl-dev && pip install buildozer cython
+      run: pip install buildozer cython yt-dlp
     - name: Run Buildozer
       run: yes | buildozer -v android debug
     - uses: actions/upload-artifact@v4
